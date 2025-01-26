@@ -1,17 +1,34 @@
 package database
 
 import (
-	"github.com/jackc/pgx"
+	"context"
+	"os"
+	"time"
+
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-func DBConnection(dbUrl string) (*pgx.Conn, error) {
-	conn, err := pgx.Connect(pgx.ConnConfig{Host: dbUrl})
+func DBConn() (*pgxpool.Pool, error) {
+	ctx := context.Background()
+	pool, err := pgxpool.New(ctx, os.Getenv("DB_URL"))
 	if err != nil {
 		return nil, err
 	}
-	return conn, nil
+	if err := ping(ctx, pool); err != nil {
+		return nil, err
+	}
+	return pool, nil
 }
 
-func CloseConn(conn *pgx.Conn) error {
-	return conn.Close()
+func ping(c context.Context, cn *pgxpool.Pool) error {
+	ctx, cancel := context.WithTimeout(c, time.Second*5)
+	defer cancel()
+	var err error
+	for i := 0; i < 5; i++ {
+		if err = cn.Ping(ctx); err == nil {
+			return nil
+		}
+		time.Sleep(time.Millisecond * 500)
+	}
+	return err
 }

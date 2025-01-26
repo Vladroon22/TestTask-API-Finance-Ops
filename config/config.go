@@ -2,12 +2,12 @@ package config
 
 import "os"
 
-type Config struct {
+type DBconfig struct {
 	DB string
 }
 
-func CreateConfig() *Config {
-	return &Config{
+func CreateConfig() *DBconfig {
+	return &DBconfig{
 		DB: getEnv("DB", ""),
 	}
 }

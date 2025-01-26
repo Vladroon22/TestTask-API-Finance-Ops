@@ -7,10 +7,10 @@ type User struct {
 	Balance float64
 }
 
-type Transaction struct {
-	ID        int
-	UserID    int
-	Amount    float64
-	Type      string
-	CreatedAt time.Time
+type Tx struct {
+	Sender_name   string
+	Receiver_name string
+	Amount        float64
+	Type          string
+	CreatedAt     time.Time
 }

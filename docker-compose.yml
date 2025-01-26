@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16.2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 54321
+      POSTGRES_DB: postgres
+    ports:
+      - "5422:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: "postgres://postgres:54321@localhost:5422/postgres?sslmode=disable"
+    depends_on:
+      - db
+
+  migrate:
+    image: pressly/goose:latest
+    volumes:
+      - ./migrations:/migrations
+    environment:
+      DATABASE_URL: "postgres://postgres:54321@postgres:5422/postgres?sslmode=disable"
+    command: ["-dir", "/migrations", "up"]
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
