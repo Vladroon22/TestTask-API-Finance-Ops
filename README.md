@@ -16,6 +16,20 @@ GOOSE_DBSTRING=postgres://postgres:54321@localhost:5422/postgres?sslmode=disable
 GOOSE_MIGRATION_DIR=./migrations
 ```
 
+<h4>How to run</h4>
+
+<b>To build docker-compose</b>
+
+```
+make run
+```
+
+<b>To make executable</b>
+
+```
+make app 
+```
+
 <h3>API EndPoints</h3>
 
 <b>1. Increase user's balance</b>
