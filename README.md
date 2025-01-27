@@ -107,11 +107,10 @@ POST /api/v1/transfer
 }
 ```
 
-
-<b>3. Transferring money between users</b>
+<b>3. Get last user's txs</b>
 
 ```
-POST /api/v1/tx/{userID}
+GET /api/v1/tx/{userID}
 ```
 
 <ul>
