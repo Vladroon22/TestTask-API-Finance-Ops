@@ -25,14 +25,14 @@ func (h *Handler) IncreaseUserBalance(c *gin.Context) {
 	}
 
 	if err := c.ShouldBindJSON(&request); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "incorrect input"})
 		h.logger.Errorln(err)
 		return
 	}
 
 	err := h.service.IncreaseUserBalance(c.Request.Context(), request.UserID, request.Amount)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "bad db response"})
 		h.logger.Errorln(err)
 		return
 	}
@@ -50,13 +50,13 @@ func (h *Handler) TransferMoney(c *gin.Context) {
 	}
 
 	if err := c.ShouldBindJSON(&request); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "incorrect input"})
 		h.logger.Errorln(err)
 		return
 	}
 
 	if err := h.service.TransferMoney(c.Request.Context(), request.userFrom, request.userTo, request.fromUserID, request.toUserID, request.amount); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "bad db response"})
 		h.logger.Errorln(err)
 		return
 	}
@@ -75,7 +75,7 @@ func (h *Handler) GetLastTxs(c *gin.Context) {
 
 	transactions, err := h.service.GetLastTxs(c.Request.Context(), userID)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "bad db response"})
 		h.logger.Errorln(err)
 		return
 	}

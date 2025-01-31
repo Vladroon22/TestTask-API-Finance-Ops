@@ -32,7 +32,6 @@ func main() {
 	handler := handlers.NewHandler(srv, logger)
 
 	r := gin.Default()
-	r.Use(gin.Recovery(), gin.Logger())
 
 	r.POST("/api/v1/up", handler.IncreaseUserBalance)
 	r.POST("/api/v1/transfer", handler.TransferMoney)

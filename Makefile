@@ -8,3 +8,5 @@ app:
 	go build -o ./app cmd/main.go
 	./app
 
+tests:
+	go test -v ./internal/service

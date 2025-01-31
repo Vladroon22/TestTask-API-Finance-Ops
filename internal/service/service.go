@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/Vladroon22/TestTask-Bank-Operation/internal/entity"
-	"github.com/Vladroon22/TestTask-Bank-Operation/internal/repository"
 )
 
 type Servicer interface {
@@ -14,10 +13,10 @@ type Servicer interface {
 }
 
 type Service struct {
-	repo repository.Repository
+	repo Servicer
 }
 
-func NewService(repo repository.Repository) Servicer {
+func NewService(repo Servicer) Servicer {
 	return &Service{repo: repo}
 }
 

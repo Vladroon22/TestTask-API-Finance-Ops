@@ -30,6 +30,12 @@ make run
 make app 
 ```
 
+<b>To run tests</b>
+
+```
+make tests
+```
+
 <h3>API EndPoints</h3>
 
 <b>1. Increase user's balance</b>
